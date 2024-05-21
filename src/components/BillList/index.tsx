@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { Legislation, Sponsor } from "../../domain/legislation";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { useMemo } from "react";
-import { FavoriteButton } from "../../features/favorites/FavoriteButton";
+import { FavouriteButton } from "../../features/favorites/FavouriteButton";
 import axios from "axios";
 import { SponsorsView } from "./SponsorsView";
 
@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
     field: "favourite",
     type: "actions",
     width: 80,
-    getActions: (params) => [<FavoriteButton billRow={params.row} />],
+    getActions: (params) => [<FavouriteButton billRow={params.row} />],
   },
   { field: "billNumber", headerName: "Bill number", width: 150 },
   { field: "billType", headerName: "Bill type", width: 150 },

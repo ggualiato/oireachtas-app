@@ -1,13 +1,13 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { BillRow } from "../../../components/BillList";
-import { useFavoritesContext } from "../useFavoritesContext";
+import { BillRow } from "../../components/BillList";
+import { useFavoritesContext } from "./useFavoritesContext";
 
-interface FavoriteButtonProps {
+interface FavouriteButtonProps {
   billRow: BillRow;
 }
 
-export const FavoriteButton = ({ billRow }: FavoriteButtonProps) => {
+export const FavouriteButton = ({ billRow }: FavouriteButtonProps) => {
   const { favoriteBill, isBillFavorite, unfavoriteBill } =
     useFavoritesContext();
 
