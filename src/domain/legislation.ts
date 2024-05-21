@@ -20,7 +20,7 @@ interface LegislationHead {
 interface Bill {
   billNo: string;
   billType: string;
-  status: string;
+  status: BillStatus;
   sponsors: Sponsor[];
 }
 
@@ -35,4 +35,13 @@ interface Sponsor {
       uri: null | string;
     };
   };
+}
+
+enum BillStatus {
+  Current = "Current",
+  Withdrawn = "Withdrawn",
+  Enacted = "Enacted",
+  Rejected = "Rejected",
+  Defeated = "Defeated",
+  Lapsed = "Lapsed",
 }
