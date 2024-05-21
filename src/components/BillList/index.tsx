@@ -1,3 +1,4 @@
+import React from "react";
 import useSWR from "swr";
 import { Legislation } from "../../domain/legislation";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
