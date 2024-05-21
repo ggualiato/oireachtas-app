@@ -1,11 +1,7 @@
-import { BillList } from "./components/BillList";
+import { MainContent } from "./components/MainContent";
 
 function App() {
-  return (
-    <div>
-      <BillList />;
-    </div>
-  );
+  return <MainContent />;
 }
 
 export default App;
