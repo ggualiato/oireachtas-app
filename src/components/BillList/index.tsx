@@ -4,6 +4,7 @@ import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { useMemo } from "react";
 import { FavoriteButton } from "../../features/favorites/FavoriteButton";
 import axios from "axios";
+import { SponsorsView } from "./SponsorsView";
 
 const columns: GridColDef[] = [
   {
@@ -21,12 +22,15 @@ const columns: GridColDef[] = [
     width: 150,
     renderCell: (props) => {
       return (
-        <button
-          style={{ color: "red" }}
-          onClick={() => alert(JSON.stringify(props.value[0]))}
-        >
-          View sponsors
-        </button>
+        <>
+          <button
+            style={{ color: "red" }}
+            onClick={() => alert(JSON.stringify(props.value))}
+          >
+            View sponsors
+          </button>
+          <SponsorsView sponsors={props.value} />
+        </>
       );
     },
   },
