@@ -12,11 +12,7 @@ export const MainContent = () => {
 
   return (
     <div>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="basic tabs example"
-      >
+      <Tabs value={value} onChange={handleChange}>
         <Tab label="Bills" id="bills-tab" />
         <Tab label="Favourites" id="favourites-tab" />
       </Tabs>
