@@ -2,6 +2,7 @@ export interface Legislation {
   head: LegislationHead;
   results: {
     bill: Bill;
+    contextDate: string;
   }[];
 }
 
@@ -24,7 +25,7 @@ interface Bill {
   sponsors: Sponsor[];
 }
 
-interface Sponsor {
+export interface Sponsor {
   sponsor: {
     by: {
       showAs: null | string;

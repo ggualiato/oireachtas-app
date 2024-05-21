@@ -1,17 +1,16 @@
-import React from "react";
 import useSWR from "swr";
-import { Legislation } from "../../domain/legislation";
+import { Legislation, Sponsor } from "../../domain/legislation";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { useMemo } from "react";
+import { FavoriteButton } from "../../features/favorites/FavoriteButton";
+import axios from "axios";
 
 const columns: GridColDef[] = [
   {
     field: "favourite",
-    headerName: "Favorite",
-    width: 150,
-    renderCell: () => (
-      <button onClick={() => alert("hello favorite")}>Favorite</button>
-    ),
+    type: "actions",
+    width: 80,
+    getActions: (params) => [<FavoriteButton billRow={params.row} />],
   },
   { field: "billNumber", headerName: "Bill number", width: 150 },
   { field: "billType", headerName: "Bill type", width: 150 },
@@ -33,11 +32,19 @@ const columns: GridColDef[] = [
   },
 ];
 
+export interface BillRow {
+  id: string;
+  billNumber: string;
+  billType: string;
+  billStatus: string;
+  sponsors: Sponsor[];
+}
+
 export const BillList = () => {
   const { data } = useSWR<Legislation>(
     "https://api.oireachtas.ie/v1/legislation?limit=50",
     (url: string) => {
-      return fetch(url).then((resp) => resp.json());
+      return axios(url).then((resp) => resp.data);
     }
   );
 
@@ -48,17 +55,14 @@ export const BillList = () => {
 
     return data?.results.map((item) => {
       return {
-        id: item.bill.billNo,
+        id: item.bill.billNo + item.contextDate,
         billNumber: item.bill.billNo,
         billType: item.bill.billType,
         billStatus: item.bill.status,
         sponsors: item.bill.sponsors,
-        isFavorite: false, // call function to check if is favorite or not
-      };
+      } as BillRow;
     });
   }, [data]);
-
-  console.log(formattedData.length);
 
   return (
     <div style={{ height: 500, width: "100%" }}>
