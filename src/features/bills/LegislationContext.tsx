@@ -5,12 +5,11 @@ import {
 } from "../../domain/legislation";
 import useSWR from "swr";
 import { oireachtasApi } from "../../api";
-import { BillStatus } from "./status";
+import { useSearchParams } from "react-router-dom";
 
 export interface LegislationContextValue {
   results: LegislationResult[];
   updatePage: (newPage: number) => void;
-  updateStatusFilter: (newStatuses: BillStatus[]) => void;
   statusFilter: string[];
   numberOfPages: number;
 }
@@ -24,14 +23,15 @@ interface LegislationProviderProps {
 }
 
 export const LegislationProvider = ({ children }: LegislationProviderProps) => {
-  const [statusFilter, setStatusFilter] = useState<BillStatus[]>([]);
+  const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
+
   const skip = (page - 1) * 10;
-  const bill_status = statusFilter.join(",");
+
   const { data } = useSWR<LegislationResponse>(
     "/v1/legislation?limit=10&skip=" +
       skip +
-      (bill_status ? "&bill_status=" + bill_status : ""),
+      (searchParams ? "&" + searchParams.toString() : ""),
     (url: string) =>
       oireachtasApi<LegislationResponse>(url).then((resp) => resp.data),
     {
@@ -45,17 +45,12 @@ export const LegislationProvider = ({ children }: LegislationProviderProps) => {
     setPage(newPage);
   }, []);
 
-  const updateStatusFilter = useCallback((filters: BillStatus[]) => {
-    setStatusFilter(filters);
-  }, []);
-
   return (
     <LegislationContext.Provider
       value={{
         results: data?.results ?? [],
-        updateStatusFilter,
         updatePage,
-        statusFilter,
+        statusFilter: searchParams.getAll("bill_status"),
         numberOfPages,
       }}
     >

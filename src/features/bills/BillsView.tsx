@@ -13,20 +13,23 @@ import { BillModal } from "./BillModal";
 import { useLegislationContext } from "./useLegislationContext";
 import { BillStatus, statuses } from "./status";
 import { BillsTable } from "./BillsTable";
+import { useSearchParams } from "react-router-dom";
 
 export const BillView = () => {
-  const { updatePage, updateStatusFilter, statusFilter, numberOfPages } =
-    useLegislationContext();
+  const setSearchParams = useSearchParams()[1];
+  const { updatePage, statusFilter, numberOfPages } = useLegislationContext();
   const [billSelected, setBillSelected] = useState<Bill>();
 
   const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
     const value = e.target.value;
-
-    updateStatusFilter(
+    const statusList =
       typeof value === "string"
         ? (value.split(",") as BillStatus[])
-        : (value as BillStatus[])
-    );
+        : (value as BillStatus[]);
+
+    const p = new URLSearchParams(statusList.map((i) => ["bill_status", i]));
+
+    setSearchParams(p);
   };
 
   return (
