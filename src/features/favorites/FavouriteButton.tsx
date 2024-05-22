@@ -1,6 +1,6 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { BillRow } from "../../components/BillList";
+import { BillRow } from "../../components/BillList/BillList";
 import { useFavoritesContext } from "./useFavoritesContext";
 
 interface FavouriteButtonProps {
@@ -12,8 +12,18 @@ export const FavouriteButton = ({ billRow }: FavouriteButtonProps) => {
     useFavoritesContext();
 
   return isBillFavorite(billRow.id) ? (
-    <StarIcon onClick={() => unfavoriteBill(billRow.id)} />
+    <StarIcon
+      onClick={(e) => {
+        e.stopPropagation();
+        unfavoriteBill(billRow.id);
+      }}
+    />
   ) : (
-    <StarBorderIcon onClick={() => favoriteBill(billRow.id)} />
+    <StarBorderIcon
+      onClick={(e) => {
+        e.stopPropagation();
+        favoriteBill(billRow.id);
+      }}
+    />
   );
 };

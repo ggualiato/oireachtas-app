@@ -18,5 +18,18 @@ export const SponsorsView = ({ sponsors }: SponsorsViewProps) => {
     }
   });
 
-  return <>{stringArray.join("|")}</>;
+  const final = stringArray.join(" | ");
+  return (
+    <div
+      style={{
+        width: "200px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+      }}
+      title={final}
+    >
+      {final}
+    </div>
+  );
 };
