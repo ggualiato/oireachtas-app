@@ -5,7 +5,6 @@ interface SponsorsViewProps {
 }
 
 export const SponsorsView = ({ sponsors }: SponsorsViewProps) => {
-  console.log(sponsors);
   const stringArray: string[] = [];
 
   sponsors.forEach((sponsor) => {
