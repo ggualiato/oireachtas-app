@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tab, Tabs } from "@mui/material";
+import { Container, Tab, Tabs } from "@mui/material";
 import { CustomTabPanel } from "../CustomTabPanel";
 import { BillList } from "../BillList/BillList";
 import { FavoritesProvider } from "../../features/favorites/FavoritesContext";
@@ -15,7 +15,7 @@ export const MainContent = () => {
   return (
     <div>
       <FavoritesProvider>
-        <>
+        <Container maxWidth="sm">
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Bills" id="bills-tab" />
             <Tab label="Favourites" id="favourites-tab" />
@@ -26,7 +26,7 @@ export const MainContent = () => {
           <CustomTabPanel value={value} index={1}>
             <FavoritesList />
           </CustomTabPanel>
-        </>
+        </Container>
       </FavoritesProvider>
     </div>
   );
