@@ -4,22 +4,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const FavoritesList = () => {
   const { favorites, unfavoriteBill } = useFavoritesContext();
+
   return (
     <div style={{ width: 500, height: 200 }}>
       <List>
-        {favorites.map((fav) => (
+        {favorites.map((favorite) => (
           <ListItem
             secondaryAction={
               <IconButton
                 edge="start"
                 aria-label="delete"
-                onClick={() => unfavoriteBill(fav.id)}
+                onClick={() => unfavoriteBill(favorite.id)}
               >
                 <DeleteIcon />
               </IconButton>
             }
           >
-            <ListItemText primary={fav.id} secondary={"Secondary text"} />
+            <ListItemText primary={favorite.id} secondary={"Secondary text"} />
           </ListItem>
         ))}
       </List>

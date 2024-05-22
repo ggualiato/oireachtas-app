@@ -5,23 +5,23 @@ import { BillView } from "../../features/bills/BillsView";
 import { FavoritesList } from "../../features/favorites/FavoritesList";
 
 export const MainContent = () => {
-  const [value, setValue] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setActiveTab(newValue);
   };
 
   return (
     <div>
       <Container maxWidth="sm">
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={activeTab} onChange={handleChange}>
           <Tab label="Bills" id="bills-tab" />
           <Tab label="Favourites" id="favourites-tab" />
         </Tabs>
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel value={activeTab} index={0}>
           <BillView />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel value={activeTab} index={1}>
           <FavoritesList />
         </CustomTabPanel>
       </Container>
