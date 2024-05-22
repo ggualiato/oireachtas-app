@@ -1,5 +1,4 @@
-import useSWR from "swr";
-import { Bill, LegislationResponse } from "../../domain/legislation";
+import { Bill } from "../../domain/legislation";
 import { useState } from "react";
 import { FavouriteButton } from "../favorites/FavouriteButton";
 import { SponsorsView } from "./SponsorsView";
@@ -17,8 +16,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { BillModal } from "./BillModal";
-import { oireachtasApi } from "../../api";
 import { Table } from "@mui/material";
+import { useLegislationContext } from "./useLegislationContext";
 
 const statuses = [
   "Current",
@@ -30,28 +29,19 @@ const statuses = [
 ];
 
 export const BillList = () => {
-  const [statusFilter, setStatusFilter] = useState<string[]>([]);
+  const {
+    results,
+    updatePage,
+    updateStatusFilter,
+    statusFilter,
+    numberOfPages,
+  } = useLegislationContext();
   const [billSelected, setBillSelected] = useState<Bill>();
-  const [page, setPage] = useState(1);
-  const skip = (page - 1) * 10;
-  const bill_status = statusFilter.join(",");
-
-  const { data } = useSWR<LegislationResponse>(
-    "/v1/legislation?limit=10&skip=" +
-      skip +
-      (bill_status ? "&bill_status=" + bill_status : ""),
-    (url: string) => oireachtasApi(url).then((resp) => resp.data),
-    {
-      keepPreviousData: true,
-    }
-  );
-  const bills = data?.results ?? [];
-  const numberOfPages = Math.ceil((data?.head.counts.billCount ?? 0) / 10);
 
   const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
     const value = e.target.value;
 
-    setStatusFilter(typeof value === "string" ? value.split(",") : value);
+    updateStatusFilter(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -96,7 +86,7 @@ export const BillList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {bills?.map((item) => {
+          {results?.map((item) => {
             const bill = item.bill;
             const uid = bill.billNo + bill.billYear;
             return (
@@ -124,7 +114,7 @@ export const BillList = () => {
         count={numberOfPages}
         variant="outlined"
         shape="rounded"
-        onChange={(_event, value) => setPage(value)}
+        onChange={(_event, value) => updatePage(value)}
       />
     </div>
   );

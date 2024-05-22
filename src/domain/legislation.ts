@@ -1,9 +1,11 @@
 export interface LegislationResponse {
   head: LegislationHead;
-  results: {
-    bill: Bill;
-    contextDate: string;
-  }[];
+  results: LegislationResult[];
+}
+
+export interface LegislationResult {
+  bill: Bill;
+  contextDate: string;
 }
 
 interface LegislationHead {
