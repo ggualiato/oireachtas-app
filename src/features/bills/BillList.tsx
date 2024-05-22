@@ -18,15 +18,7 @@ import {
 import { BillModal } from "./BillModal";
 import { Table } from "@mui/material";
 import { useLegislationContext } from "./useLegislationContext";
-
-const statuses = [
-  "Current",
-  "Withdrawn",
-  "Enacted",
-  "Rejected",
-  "Defeated",
-  "Lapsed",
-];
+import { BillStatus, statuses } from "./status";
 
 export const BillList = () => {
   const {
@@ -41,7 +33,11 @@ export const BillList = () => {
   const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
     const value = e.target.value;
 
-    updateStatusFilter(typeof value === "string" ? value.split(",") : value);
+    updateStatusFilter(
+      typeof value === "string"
+        ? (value.split(",") as BillStatus[])
+        : (value as BillStatus[])
+    );
   };
 
   return (

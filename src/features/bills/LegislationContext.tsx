@@ -5,11 +5,12 @@ import {
 } from "../../domain/legislation";
 import useSWR from "swr";
 import { oireachtasApi } from "../../api";
+import { BillStatus } from "./status";
 
-interface LegislationContextValue {
+export interface LegislationContextValue {
   results: LegislationResult[];
   updatePage: (newPage: number) => void;
-  updateStatusFilter: (newStatuses: string[]) => void;
+  updateStatusFilter: (newStatuses: BillStatus[]) => void;
   statusFilter: string[];
   numberOfPages: number;
 }
@@ -23,7 +24,7 @@ interface LegislationProviderProps {
 }
 
 export const LegislationProvider = ({ children }: LegislationProviderProps) => {
-  const [statusFilter, setStatusFilter] = useState<string[]>([]);
+  const [statusFilter, setStatusFilter] = useState<BillStatus[]>([]);
   const [page, setPage] = useState(1);
   const skip = (page - 1) * 10;
   const bill_status = statusFilter.join(",");
@@ -44,7 +45,7 @@ export const LegislationProvider = ({ children }: LegislationProviderProps) => {
     setPage(newPage);
   }, []);
 
-  const updateStatusFilter = useCallback((filters: string[]) => {
+  const updateStatusFilter = useCallback((filters: BillStatus[]) => {
     setStatusFilter(filters);
   }, []);
 

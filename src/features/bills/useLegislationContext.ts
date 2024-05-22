@@ -1,7 +1,10 @@
 import { useContext } from "react";
-import { LegislationContext } from "./LegislationContext";
+import {
+  LegislationContext,
+  LegislationContextValue,
+} from "./LegislationContext";
 
-export const useLegislationContext = () => {
+export const useLegislationContext = (): LegislationContextValue => {
   const context = useContext(LegislationContext);
 
   if (context === undefined || context === null) {
