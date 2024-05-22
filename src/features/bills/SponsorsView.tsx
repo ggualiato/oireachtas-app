@@ -1,4 +1,4 @@
-import { Sponsor } from "../../../domain/legislation";
+import { Sponsor } from "../../domain/legislation";
 
 interface SponsorsViewProps {
   sponsors: Sponsor[];

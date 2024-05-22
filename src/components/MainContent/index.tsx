@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
 import { CustomTabPanel } from "../CustomTabPanel";
-import { BillList } from "../../features/bills/BillList/BillList";
+import { BillList } from "../../features/bills/BillList";
 import { FavoritesProvider } from "../../features/favorites/FavoritesContext";
 import { FavoritesList } from "../../features/favorites/FavoritesList";
 
