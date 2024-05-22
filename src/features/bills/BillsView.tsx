@@ -66,7 +66,7 @@ export const BillList = () => {
       <Table size="medium">
         <TableHead>
           <TableRow>
-            <TableCell width={5}></TableCell>
+            <TableCell></TableCell>
             <TableCell align="left" width={80}>
               Bill number
             </TableCell>
