@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
-import { CustomTabPanel } from "../CustomTabPanel";
-import { Bill } from "../../domain/legislation";
+import { CustomTabPanel } from "../../../components/CustomTabPanel";
+import { Bill } from "../../../domain/legislation";
 
 const style = {
   position: "absolute" as const,

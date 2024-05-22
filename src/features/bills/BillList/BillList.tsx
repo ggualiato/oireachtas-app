@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import { Bill, LegislationResponse } from "../../domain/legislation";
+import { Bill, LegislationResponse } from "../../../domain/legislation";
 import { useState } from "react";
-import { FavouriteButton } from "../../features/favorites/FavouriteButton";
+import { FavouriteButton } from "../../favorites/FavouriteButton";
 import { SponsorsView } from "./SponsorsView";
 import {
   FormControl,
@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { BillModal } from "./BillModal";
-import { oireachtasApi } from "../../api";
+import { oireachtasApi } from "../../../api";
 import { Table } from "@mui/material";
 
 const statuses = [
@@ -120,7 +120,6 @@ export const BillList = () => {
           })}
         </TableBody>
       </Table>
-
       <Pagination
         count={numberOfPages}
         variant="outlined"
