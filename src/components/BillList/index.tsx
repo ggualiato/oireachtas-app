@@ -3,10 +3,10 @@ import { Legislation, Sponsor } from "../../domain/legislation";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { useMemo, useState } from "react";
 import { FavouriteButton } from "../../features/favorites/FavouriteButton";
-import axios from "axios";
 import { SponsorsView } from "./SponsorsView";
 import { Modal } from "@mui/material";
 import { BillModal } from "./BillModal";
+import { oireachtasApi } from "../../api";
 
 const columns: GridColDef[] = [
   {
@@ -49,9 +49,9 @@ export interface BillRow {
 export const BillList = () => {
   const [showBillDetails, setShowBillDetails] = useState(false);
   const { data } = useSWR<Legislation>(
-    "https://api.oireachtas.ie/v1/legislation?limit=50",
+    "/v1/legislation?limit=50",
     (url: string) => {
-      return axios(url).then((resp) => resp.data);
+      return oireachtasApi(url).then((resp) => resp.data);
     }
   );
 

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { createContext, useCallback } from "react";
 import useSWR from "swr";
+import { fakeApi } from "../../api";
 
 interface FavoritesContextValue {
   favorites: Favorite[];
@@ -22,9 +22,8 @@ interface FavoritesProviderProps {
 }
 
 export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const favorite = useSWR<Favorite[]>(
-    "http://localhost:3000/favorites",
-    (url: string) => axios.get(url).then((resp) => resp.data)
+  const favorite = useSWR<Favorite[]>("/favorites", (url: string) =>
+    fakeApi.get(url).then((resp) => resp.data)
   );
 
   const isBillFavorite = useCallback(
@@ -37,11 +36,9 @@ export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
   const favoriteBill = useCallback(
     async (billId: string) => {
       const favoritedBil = { id: billId };
-      await axios
-        .post<void>("http://localhost:3000/favorites/", favoritedBil)
-        .then((data) => {
-          console.log(data);
-        });
+      await fakeApi.post<void>("/favorites/", favoritedBil).then((data) => {
+        console.log(data);
+      });
       favorite.mutate([...(favorite?.data ?? []), favoritedBil]);
     },
     [favorite]
@@ -49,11 +46,9 @@ export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
 
   const unfavoriteBill = useCallback(
     async (billId: string) => {
-      await axios
-        .delete<void>("http://localhost:3000/favorites/" + billId)
-        .then((data) => {
-          console.log(data);
-        });
+      await fakeApi.delete<void>("/favorites/" + billId).then((data) => {
+        console.log(data);
+      });
       favorite.mutate(
         (favorite?.data ?? []).filter((fav) => fav.id !== billId)
       );
