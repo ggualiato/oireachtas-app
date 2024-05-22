@@ -18,11 +18,10 @@ import { Table } from "@mui/material";
 export const BillList = () => {
   const [billSelected, setBillSelected] = useState<Bill>();
   const [page, setPage] = useState(1);
+  const skip = (page - 1) * 10;
   const { data } = useSWR<LegislationResponse>(
-    "/v1/legislation?limit=10&skip=" + (page - 1) * 10,
-    (url: string) => {
-      return oireachtasApi(url).then((resp) => resp.data);
-    },
+    "/v1/legislation?limit=10&skip=" + skip,
+    (url: string) => oireachtasApi(url).then((resp) => resp.data),
     {
       keepPreviousData: true,
     }
