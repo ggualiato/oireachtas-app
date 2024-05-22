@@ -18,7 +18,7 @@ export const FavoritesContext = createContext<FavoritesContextValue | null>(
 );
 
 interface FavoritesProviderProps {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {

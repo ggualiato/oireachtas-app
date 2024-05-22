@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
 import { CustomTabPanel } from "../CustomTabPanel";
 import { BillView } from "../../features/bills/BillsView";
-import { FavoritesProvider } from "../../features/favorites/FavoritesContext";
 import { FavoritesList } from "../../features/favorites/FavoritesList";
-import { LegislationProvider } from "../../features/bills/LegislationContext";
 
 export const MainContent = () => {
   const [value, setValue] = useState(0);
@@ -15,22 +13,18 @@ export const MainContent = () => {
 
   return (
     <div>
-      <LegislationProvider>
-        <FavoritesProvider>
-          <Container maxWidth="sm">
-            <Tabs value={value} onChange={handleChange}>
-              <Tab label="Bills" id="bills-tab" />
-              <Tab label="Favourites" id="favourites-tab" />
-            </Tabs>
-            <CustomTabPanel value={value} index={0}>
-              <BillView />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              <FavoritesList />
-            </CustomTabPanel>
-          </Container>
-        </FavoritesProvider>
-      </LegislationProvider>
+      <Container maxWidth="sm">
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="Bills" id="bills-tab" />
+          <Tab label="Favourites" id="favourites-tab" />
+        </Tabs>
+        <CustomTabPanel value={value} index={0}>
+          <BillView />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <FavoritesList />
+        </CustomTabPanel>
+      </Container>
     </div>
   );
 };
