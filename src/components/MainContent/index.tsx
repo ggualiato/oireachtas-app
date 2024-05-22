@@ -1,29 +1,33 @@
-import React, { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
-import { CustomTabPanel } from "../CustomTabPanel";
-import { BillView } from "../../features/bills/BillsView";
-import { FavoritesList } from "../../features/favorites/FavoritesList";
+import { Link, Outlet } from "react-router-dom";
+import { useRouteMatch } from "../../hooks/useRouteMatch";
 
 export const MainContent = () => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setActiveTab(newValue);
-  };
+  const routeMatch = useRouteMatch(["/bills", "/favourites"]);
+  const currentTab = routeMatch?.pattern?.path;
 
   return (
     <div>
       <Container maxWidth="sm">
-        <Tabs value={activeTab} onChange={handleChange}>
-          <Tab label="Bills" id="bills-tab" />
-          <Tab label="Favourites" id="favourites-tab" />
+        <Tabs value={currentTab}>
+          <Tab
+            label="Bills"
+            value={"/bills"}
+            id="bills-tab"
+            to={`bills`}
+            component={Link}
+          />
+          <Tab
+            label="Favourites"
+            value={"/favourites"}
+            id="favourites-tab"
+            to="favourites"
+            component={Link}
+          />
         </Tabs>
-        <CustomTabPanel value={activeTab} index={0}>
-          <BillView />
-        </CustomTabPanel>
-        <CustomTabPanel value={activeTab} index={1}>
-          <FavoritesList />
-        </CustomTabPanel>
+        <div>
+          <Outlet />
+        </div>
       </Container>
     </div>
   );
