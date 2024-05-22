@@ -1,10 +1,12 @@
 import useSWR from "swr";
 import { Legislation, Sponsor } from "../../domain/legislation";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FavouriteButton } from "../../features/favorites/FavouriteButton";
 import axios from "axios";
 import { SponsorsView } from "./SponsorsView";
+import { Modal } from "@mui/material";
+import { BillModal } from "./BillModal";
 
 const columns: GridColDef[] = [
   {
@@ -45,6 +47,7 @@ export interface BillRow {
 }
 
 export const BillList = () => {
+  const [showBillDetails, setShowBillDetails] = useState(false);
   const { data } = useSWR<Legislation>(
     "https://api.oireachtas.ie/v1/legislation?limit=50",
     (url: string) => {
@@ -70,7 +73,22 @@ export const BillList = () => {
 
   return (
     <div style={{ height: 500, width: "100%" }}>
-      <DataGrid rows={formattedData} columns={columns} />
+      <Modal
+        open={showBillDetails}
+        onClose={() => setShowBillDetails(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <BillModal />
+      </Modal>
+      <DataGrid
+        onRowClick={(params) => {
+          setShowBillDetails(true);
+          console.log("params", params);
+        }}
+        rows={formattedData}
+        columns={columns}
+      />
       <div>{JSON.stringify(data?.head)}</div>
       <div>{data?.results.length}</div>
     </div>
