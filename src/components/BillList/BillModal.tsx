@@ -1,4 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { useState } from "react";
+import { CustomTabPanel } from "../CustomTabPanel";
+import { Bill } from "../../domain/legislation";
 
 const style = {
   position: "absolute" as const,
@@ -10,17 +13,35 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius: 2,
 };
 
-export const BillModal = () => {
+interface BillModalProps {
+  bill: Bill;
+}
+
+export const BillModal = ({ bill }: BillModalProps) => {
+  const [value, setValue] = useState(0);
+
   return (
     <Box sx={style}>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
-        Text in a modal
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </Typography>
+      <Tabs value={value} onChange={(_e, v) => setValue(v)}>
+        <Tab label="English" id="english-tab" />
+        <Tab label="Gaeilge" id="gaeilge-tab" />
+      </Tabs>
+      <CustomTabPanel value={value} index={0}>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          {bill.shortTitleEn}
+        </Typography>
+        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+          <div dangerouslySetInnerHTML={{ __html: bill.longTitleEn }}></div>
+        </Typography> */}
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          {bill.shortTitleGa}
+        </Typography>
+      </CustomTabPanel>
     </Box>
   );
 };

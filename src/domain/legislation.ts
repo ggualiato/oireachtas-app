@@ -1,4 +1,4 @@
-export interface Legislation {
+export interface LegislationResponse {
   head: LegislationHead;
   results: {
     bill: Bill;
@@ -18,11 +18,16 @@ interface LegislationHead {
   lang: string;
 }
 
-interface Bill {
+export interface Bill {
   billNo: string;
   billType: string;
   status: BillStatus;
   sponsors: Sponsor[];
+  longTitleEn: string;
+  longTitleGa: string;
+  billYear: string;
+  shortTitleEn: string;
+  shortTitleGa: string;
 }
 
 export interface Sponsor {
