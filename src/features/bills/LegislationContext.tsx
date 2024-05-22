@@ -1,11 +1,7 @@
 import { createContext, useCallback, useState } from "react";
-import {
-  LegislationResponse,
-  LegislationResult,
-} from "../../domain/legislation";
-import useSWR from "swr";
-import { oireachtasApi } from "../../api";
+import { LegislationResult } from "../../domain/legislation";
 import { useSearchParams } from "react-router-dom";
+import { useLegislationQuery } from "./useLegislationQuery";
 
 export interface LegislationContextValue {
   results: LegislationResult[];
@@ -26,18 +22,7 @@ export const LegislationProvider = ({ children }: LegislationProviderProps) => {
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
 
-  const skip = (page - 1) * 10;
-
-  const { data } = useSWR<LegislationResponse>(
-    "/v1/legislation?limit=10&skip=" +
-      skip +
-      (searchParams ? "&" + searchParams.toString() : ""),
-    (url: string) =>
-      oireachtasApi<LegislationResponse>(url).then((resp) => resp.data),
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data } = useLegislationQuery(page);
 
   const numberOfPages = Math.ceil((data?.head.counts.billCount ?? 0) / 10);
 
