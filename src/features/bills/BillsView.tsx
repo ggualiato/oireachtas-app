@@ -43,12 +43,7 @@ export const BillView = () => {
   return (
     <div style={{ height: 500, width: "100%" }}>
       {billSelected && (
-        <Modal
-          open={!!billSelected}
-          onClose={() => setBillSelected(undefined)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+        <Modal open={!!billSelected} onClose={() => setBillSelected(undefined)}>
           <BillModal bill={billSelected} />
         </Modal>
       )}
