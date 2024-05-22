@@ -20,7 +20,7 @@ import { Table } from "@mui/material";
 import { useLegislationContext } from "./useLegislationContext";
 import { BillStatus, statuses } from "./status";
 
-export const BillList = () => {
+export const BillView = () => {
   const {
     results,
     updatePage,

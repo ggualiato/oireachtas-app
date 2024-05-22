@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
 import { CustomTabPanel } from "../CustomTabPanel";
-import { BillList } from "../../features/bills/BillsView";
+import { BillView } from "../../features/bills/BillsView";
 import { FavoritesProvider } from "../../features/favorites/FavoritesContext";
 import { FavoritesList } from "../../features/favorites/FavoritesList";
 import { LegislationProvider } from "../../features/bills/LegislationContext";
@@ -23,7 +23,7 @@ export const MainContent = () => {
               <Tab label="Favourites" id="favourites-tab" />
             </Tabs>
             <CustomTabPanel value={value} index={0}>
-              <BillList />
+              <BillView />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               <FavoritesList />
