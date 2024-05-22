@@ -1,7 +1,5 @@
 import { Bill } from "../../domain/legislation";
 import { useState } from "react";
-import { FavouriteButton } from "../favorites/FavouriteButton";
-import { SponsorsView } from "./SponsorsView";
 import {
   FormControl,
   InputLabel,
@@ -10,24 +8,15 @@ import {
   Pagination,
   Select,
   SelectChangeEvent,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
 } from "@mui/material";
 import { BillModal } from "./BillModal";
-import { Table } from "@mui/material";
 import { useLegislationContext } from "./useLegislationContext";
 import { BillStatus, statuses } from "./status";
+import { BillsTable } from "./BillsTable";
 
 export const BillView = () => {
-  const {
-    results,
-    updatePage,
-    updateStatusFilter,
-    statusFilter,
-    numberOfPages,
-  } = useLegislationContext();
+  const { updatePage, updateStatusFilter, statusFilter, numberOfPages } =
+    useLegislationContext();
   const [billSelected, setBillSelected] = useState<Bill>();
 
   const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
@@ -58,49 +47,7 @@ export const BillView = () => {
           ))}
         </Select>
       </FormControl>
-      <Table size="medium">
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="left" width={80}>
-              Bill number
-            </TableCell>
-            <TableCell align="left" width={80}>
-              Bill type
-            </TableCell>
-            <TableCell align="left" width={80}>
-              Bill status
-            </TableCell>
-            <TableCell align="left" width={200}>
-              Sponsors
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {results?.map((item) => {
-            const bill = item.bill;
-            const uid = bill.billNo + bill.billYear;
-            return (
-              <TableRow
-                key={uid}
-                onClick={() => {
-                  setBillSelected(bill);
-                }}
-              >
-                <TableCell>
-                  <FavouriteButton billUid={uid} />
-                </TableCell>
-                <TableCell>{bill.billNo}</TableCell>
-                <TableCell>{bill.billType}</TableCell>
-                <TableCell>{bill.status}</TableCell>
-                <TableCell>
-                  <SponsorsView sponsors={bill.sponsors} />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <BillsTable onRowClick={(bill) => setBillSelected(bill)} />
       <Pagination
         count={numberOfPages}
         variant="outlined"
