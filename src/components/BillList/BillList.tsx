@@ -4,8 +4,13 @@ import { useState } from "react";
 import { FavouriteButton } from "../../features/favorites/FavouriteButton";
 import { SponsorsView } from "./SponsorsView";
 import {
+  FormControl,
+  InputLabel,
+  MenuItem,
   Modal,
   Pagination,
+  Select,
+  SelectChangeEvent,
   TableBody,
   TableCell,
   TableHead,
@@ -15,12 +20,26 @@ import { BillModal } from "./BillModal";
 import { oireachtasApi } from "../../api";
 import { Table } from "@mui/material";
 
+const statuses = [
+  "Current",
+  "Withdrawn",
+  "Enacted",
+  "Rejected",
+  "Defeated",
+  "Lapsed",
+];
+
 export const BillList = () => {
+  const [statusFilter, setStatusFilter] = useState<string[]>([]);
   const [billSelected, setBillSelected] = useState<Bill>();
   const [page, setPage] = useState(1);
   const skip = (page - 1) * 10;
+  const bill_status = statusFilter.join(",");
+
   const { data } = useSWR<LegislationResponse>(
-    "/v1/legislation?limit=10&skip=" + skip,
+    "/v1/legislation?limit=10&skip=" +
+      skip +
+      (bill_status ? "&bill_status=" + bill_status : ""),
     (url: string) => oireachtasApi(url).then((resp) => resp.data),
     {
       keepPreviousData: true,
@@ -28,6 +47,12 @@ export const BillList = () => {
   );
   const bills = data?.results ?? [];
   const numberOfPages = Math.ceil((data?.head.counts.billCount ?? 0) / 10);
+
+  const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
+    const value = e.target.value;
+
+    setStatusFilter(typeof value === "string" ? value.split(",") : value);
+  };
 
   return (
     <div style={{ height: 500, width: "100%" }}>
@@ -42,7 +67,17 @@ export const BillList = () => {
         </Modal>
       )}
 
-      <Table>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel>Status</InputLabel>
+        <Select multiple value={statusFilter} onChange={handleChange}>
+          {statuses.map((status) => (
+            <MenuItem key={status} value={status}>
+              {status}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <Table size="medium">
         <TableHead>
           <TableRow>
             <TableCell width={5}></TableCell>
@@ -85,14 +120,13 @@ export const BillList = () => {
           })}
         </TableBody>
       </Table>
+
       <Pagination
         count={numberOfPages}
         variant="outlined"
         shape="rounded"
         onChange={(_event, value) => setPage(value)}
       />
-      <div>{JSON.stringify(data?.head)}</div>
-      <div>{data?.results.length}</div>
     </div>
   );
 };
