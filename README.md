@@ -14,8 +14,9 @@
 - React Testing Library
 - Vitest
 - MSW
+- json-server
 
 ## Preview
 
+**NOTE: the filter was done using the status field, becuase I couldn't find how to filter by type with the Oireachtas API**
 ![Preview](preview.gif)
-** the filter was done using the status field, becuase I couldn't find how to filter by type with the Oireachtas API**
