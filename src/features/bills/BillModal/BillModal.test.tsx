@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "../../../test/test-utils";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { BillModal, BillModalProps } from "./BillModal";
 
 //#region - mocks
