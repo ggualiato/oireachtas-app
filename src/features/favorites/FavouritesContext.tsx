@@ -1,13 +1,13 @@
 import { createContext, useCallback } from "react";
 import useSWR from "swr";
 import { fakeApi } from "../../services/api";
-import { BillWithId } from "../../domain/legislation";
+import { PickBillWithId } from "./FavouriteButton";
 
 interface FavouritesContextValue {
   favourites: Favourite[];
-  favouriteBill: (bill: BillWithId) => Promise<void>;
+  favouriteBill: (bill: PickBillWithId) => Promise<void>;
   unfavouriteBill: (billId: string) => Promise<void>;
-  isBillFavourite: (bill: BillWithId) => boolean;
+  isBillFavourite: (billId: string) => boolean;
 }
 
 interface Favourite {
@@ -29,14 +29,14 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
   );
 
   const isBillFavourite = useCallback(
-    (bill: BillWithId) => {
-      return !!favourites.data?.find((fav) => fav.id === bill.id);
+    (billId: string) => {
+      return !!favourites.data?.find((fav) => fav.id === billId);
     },
     [favourites.data]
   );
 
   const favouriteBill = useCallback(
-    async (bill: BillWithId) => {
+    async (bill: PickBillWithId) => {
       await fakeApi
         .post<void>("/favourites/", {
           id: bill.id,

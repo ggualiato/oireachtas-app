@@ -11,4 +11,14 @@ export const handlers = [
   http.get("*/favourites", () => {
     return HttpResponse.json(createMockFavourites(), { status: 200 });
   }),
+  http.post("*/favourites", () => {
+    return HttpResponse.json(undefined, {
+      status: 200,
+    });
+  }),
+  http.delete("*/favourites", () => {
+    return HttpResponse.json(undefined, {
+      status: 200,
+    });
+  }),
 ];
