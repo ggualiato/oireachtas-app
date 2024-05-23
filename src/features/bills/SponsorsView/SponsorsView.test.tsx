@@ -2,6 +2,7 @@ import { render, screen } from "../../../test/test-utils";
 import { SponsorsView } from "./SponsorsView";
 import { Sponsor } from "../../../domain/legislation";
 
+//#region - mocks
 const oneSponsor: Sponsor[] = [
   {
     sponsor: {
@@ -32,6 +33,7 @@ const twoSponsors: Sponsor[] = [
     },
   },
 ];
+//#endregion
 
 describe("SponsorsView", () => {
   it("should render one sponsor in the screen", () => {
