@@ -1,6 +1,11 @@
-import { act } from "react";
 import { FavouriteButton } from "./FavouriteButton";
-import { render, fireEvent, screen, waitFor } from "../../../test/test-utils";
+import {
+  render,
+  fireEvent,
+  screen,
+  waitFor,
+  act,
+} from "../../../test/test-utils";
 
 describe("FavouriteButton", () => {
   it("should render not favorite", async () => {
