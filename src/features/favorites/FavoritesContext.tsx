@@ -1,6 +1,6 @@
 import { createContext, useCallback } from "react";
 import useSWR from "swr";
-import { fakeApi } from "../../api";
+import { fakeApi } from "../../services/api";
 
 interface FavoritesContextValue {
   favorites: Favorite[];
