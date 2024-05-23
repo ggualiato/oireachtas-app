@@ -16,7 +16,7 @@ export const handlers = [
       status: 200,
     });
   }),
-  http.delete("*/favourites", () => {
+  http.delete("*/favourites/:id", () => {
     return HttpResponse.json(undefined, {
       status: 200,
     });
