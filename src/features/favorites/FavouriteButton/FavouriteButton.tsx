@@ -25,7 +25,6 @@ export const FavouriteButton = ({ bill }: FavouriteButtonProps) => {
     <StarBorderIcon
       color="warning"
       onClick={(e) => {
-        console.log("hello");
         e.stopPropagation();
         favouriteBill(bill);
       }}
