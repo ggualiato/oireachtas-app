@@ -31,7 +31,7 @@ export const FavouritesList = () => {
               </IconButton>
             }
           >
-            <ListItemText primary={favourite.id} secondary={"Secondary text"} />
+            <ListItemText primary={favourite.shortTitle} />
           </ListItem>
         ))}
       </List>

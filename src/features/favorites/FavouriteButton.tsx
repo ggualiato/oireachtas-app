@@ -1,21 +1,22 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useFavouritesContext } from "./useFavoritesContext";
+import { BillWithId } from "../../domain/legislation";
 
 interface FavouriteButtonProps {
-  billUid: string;
+  bill: BillWithId;
 }
 
-export const FavouriteButton = ({ billUid }: FavouriteButtonProps) => {
+export const FavouriteButton = ({ bill }: FavouriteButtonProps) => {
   const { favouriteBill, isBillFavourite, unfavouriteBill } =
     useFavouritesContext();
 
-  return isBillFavourite(billUid) ? (
+  return isBillFavourite(bill) ? (
     <StarIcon
       color="warning"
       onClick={(e) => {
         e.stopPropagation();
-        unfavouriteBill(billUid);
+        unfavouriteBill(bill.id);
       }}
     />
   ) : (
@@ -23,7 +24,7 @@ export const FavouriteButton = ({ billUid }: FavouriteButtonProps) => {
       color="warning"
       onClick={(e) => {
         e.stopPropagation();
-        favouriteBill(billUid);
+        favouriteBill(bill);
       }}
     />
   );

@@ -1,16 +1,18 @@
 import { createContext, useCallback } from "react";
 import useSWR from "swr";
 import { fakeApi } from "../../services/api";
+import { BillWithId } from "../../domain/legislation";
 
 interface FavouritesContextValue {
   favourites: Favourite[];
-  favouriteBill: (billId: string) => Promise<void>;
+  favouriteBill: (bill: BillWithId) => Promise<void>;
   unfavouriteBill: (billId: string) => Promise<void>;
-  isBillFavourite: (billId: string) => boolean;
+  isBillFavourite: (bill: BillWithId) => boolean;
 }
 
 interface Favourite {
   id: string;
+  shortTitle: string;
 }
 
 export const FavouritesContext = createContext<FavouritesContextValue | null>(
@@ -26,25 +28,32 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
     fakeApi.get(url).then((resp) => resp.data)
   );
 
-  const isBillFavorite = useCallback(
-    (billId: string) => {
-      return !!favourites.data?.find((fav) => fav.id === billId);
+  const isBillFavourite = useCallback(
+    (bill: BillWithId) => {
+      return !!favourites.data?.find((fav) => fav.id === bill.id);
     },
     [favourites.data]
   );
 
-  const favoriteBill = useCallback(
-    async (billId: string) => {
-      const favoritedBil = { id: billId };
-      await fakeApi.post<void>("/favorites/", favoritedBil).then(() => {
-        console.log("request to favorite a bill dispatched");
-      });
-      favourites.mutate([...(favourites?.data ?? []), favoritedBil]);
+  const favouriteBill = useCallback(
+    async (bill: BillWithId) => {
+      await fakeApi
+        .post<void>("/favorites/", {
+          id: bill.id,
+          shortTitle: bill.shortTitleEn,
+        })
+        .then(() => {
+          console.log("request to favorite a bill dispatched");
+        });
+      favourites.mutate([
+        ...(favourites?.data ?? []),
+        { id: bill.id, shortTitle: bill.shortTitleEn },
+      ]);
     },
     [favourites]
   );
 
-  const unfavoriteBill = useCallback(
+  const unfavouriteBill = useCallback(
     async (billId: string) => {
       await fakeApi.delete<void>("/favorites/" + billId).then(() => {
         console.log("request to unfavorite a bill");
@@ -60,9 +69,9 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
     <FavouritesContext.Provider
       value={{
         favourites: favourites.data ?? [],
-        favouriteBill: favoriteBill,
-        unfavouriteBill: unfavoriteBill,
-        isBillFavourite: isBillFavorite,
+        favouriteBill,
+        unfavouriteBill,
+        isBillFavourite,
       }}
     >
       {children}

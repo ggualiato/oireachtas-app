@@ -32,6 +32,12 @@ export interface Bill {
   shortTitleGa: string;
 }
 
+interface WithId {
+  id: string;
+}
+
+export type BillWithId = Bill & WithId;
+
 export interface Sponsor {
   sponsor: {
     by: {

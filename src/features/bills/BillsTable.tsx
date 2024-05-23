@@ -43,7 +43,7 @@ export const BillsTable = ({ onRowClick }: BillsTableProps) => {
           return (
             <TableRow key={uid} onClick={() => onRowClick(bill)}>
               <TableCell>
-                <FavouriteButton billUid={uid} />
+                <FavouriteButton bill={{ id: uid, ...bill }} />
               </TableCell>
               <TableCell>{bill.billNo}</TableCell>
               <TableCell>{bill.billType}</TableCell>
