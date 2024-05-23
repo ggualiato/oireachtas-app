@@ -58,6 +58,7 @@ export const BillView = () => {
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel>Status</InputLabel>
         <Select
+          size="medium"
           multiple
           value={statusFilter}
           onChange={handleChange}
@@ -71,15 +72,17 @@ export const BillView = () => {
         </Select>
       </FormControl>
       <BillsTable onRowClick={(bill) => setBillSelected(bill)} />
-      <Pagination
-        count={numberOfPages}
-        variant="outlined"
-        shape="rounded"
-        onChange={(_event, value) => {
-          searchParams.set("page", value.toString());
-          setSearchParams(searchParams);
-        }}
-      />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={numberOfPages}
+          variant="outlined"
+          shape="rounded"
+          onChange={(_event, value) => {
+            searchParams.set("page", value.toString());
+            setSearchParams(searchParams);
+          }}
+        />
+      </div>
     </div>
   );
 };
