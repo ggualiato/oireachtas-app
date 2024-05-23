@@ -1,6 +1,6 @@
 import { Box, Modal, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
-import { CustomTabPanel } from "../../../components/CustomTabPanel";
+import { CustomTabPanel } from "../../../components/CustomTabPanel/CustomTabPanel";
 import { Bill } from "../../../domain/legislation";
 import { BillModalContent } from "./BillModalContent";
 

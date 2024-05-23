@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { BillView } from "../features/bills/BillsView";
 import { FavouritesList } from "../features/favorites/FavouritesList";
-import ErrorPage from "../components/ErrorPage";
+import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 import App from "../App";
 
 export const router = createBrowserRouter([
