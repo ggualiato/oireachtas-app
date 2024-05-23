@@ -111,6 +111,36 @@ export function createMockLegislationResponse(
   return mockLegislationResponse;
 }
 
+export const createMockFavourites = () => {
+  return [
+    {
+      id: "222024",
+      shortTitle: "Automatic Enrolment Retirement Savings System Bill 2024",
+    },
+    {
+      id: "372024",
+      shortTitle: "Grocery Price Caps Bill 2024",
+    },
+    {
+      id: "212024",
+      shortTitle:
+        "Future Ireland Fund and Infrastructure, Climate and Nature Fund Bill 2024",
+    },
+    {
+      id: "382024",
+      shortTitle: "Education (Smartphones in Primary Schools) Bill 2024",
+    },
+    {
+      id: "362024",
+      shortTitle: "Social Welfare (Miscellaneous Provisions) Bill 2024",
+    },
+    {
+      id: "912022",
+      shortTitle: "Employment Permits Bill 2022",
+    },
+  ];
+};
+
 // Usage
 // const mockResponse = createMockLegislationResponse(5);
 // console.log(mockResponse);

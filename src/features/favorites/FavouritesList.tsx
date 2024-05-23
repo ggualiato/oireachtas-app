@@ -10,11 +10,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const FavouritesList = () => {
   const { favourites, unfavouriteBill } = useFavouritesContext();
-  const noFavoritesYet = favourites.length === 0;
+  const noFavouritesYet = favourites.length === 0;
 
   return (
     <div style={{ width: 500, height: 200 }}>
-      {noFavoritesYet && (
+      {noFavouritesYet && (
         <Typography sx={{ mt: 2 }}>{"There is no favourites yet"}</Typography>
       )}
       <List>

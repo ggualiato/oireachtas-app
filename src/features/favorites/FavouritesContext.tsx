@@ -24,7 +24,7 @@ interface FavouritesProviderProps {
 }
 
 export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
-  const favourites = useSWR<Favourite[]>("/favorites", (url: string) =>
+  const favourites = useSWR<Favourite[]>("/favourites", (url: string) =>
     fakeApi.get(url).then((resp) => resp.data)
   );
 
@@ -38,7 +38,7 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
   const favouriteBill = useCallback(
     async (bill: BillWithId) => {
       await fakeApi
-        .post<void>("/favorites/", {
+        .post<void>("/favourites/", {
           id: bill.id,
           shortTitle: bill.shortTitleEn,
         })
@@ -55,7 +55,7 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
 
   const unfavouriteBill = useCallback(
     async (billId: string) => {
-      await fakeApi.delete<void>("/favorites/" + billId).then(() => {
+      await fakeApi.delete<void>("/favourites/" + billId).then(() => {
         console.log("request to unfavorite a bill");
       });
       favourites.mutate(
