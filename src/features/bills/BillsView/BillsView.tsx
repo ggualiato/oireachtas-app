@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { BillModal } from "../BillModal/BillModal";
 import { useLegislationContext } from "../useLegislationContext";
-import { BillStatus, statuses } from "../status";
+import { BillStatus, statuses } from "./status";
 import { BillsTable } from "../BillsTable";
 import { useSearchParams } from "react-router-dom";
 
