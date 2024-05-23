@@ -2,8 +2,9 @@ import { LegislationResponse } from "../../domain/legislation";
 import { useSearchParams } from "react-router-dom";
 import { useOireachtasApi } from "../../services/useOireachtasApi";
 
-export const useLegislationQuery = (page: number) => {
+export const useLegislationQuery = () => {
   const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") || "1");
   const skip = `${(page - 1) * 10}`;
 
   const { data } = useOireachtasApi<LegislationResponse>(

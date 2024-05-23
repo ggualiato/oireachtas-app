@@ -1,5 +1,5 @@
 import { Bill } from "../../domain/legislation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -16,9 +16,12 @@ import { BillsTable } from "./BillsTable";
 import { useSearchParams } from "react-router-dom";
 
 export const BillView = () => {
-  const setSearchParams = useSearchParams()[1];
-  const { updatePage, statusFilter, numberOfPages } = useLegislationContext();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { numberOfPages } = useLegislationContext();
   const [billSelected, setBillSelected] = useState<Bill>();
+  const statusFilter = useMemo(() => {
+    return searchParams.getAll("bill_status");
+  }, [searchParams]);
 
   const handleChange = (e: SelectChangeEvent<typeof statusFilter>) => {
     const value = e.target.value;
@@ -27,9 +30,12 @@ export const BillView = () => {
         ? (value.split(",") as BillStatus[])
         : (value as BillStatus[]);
 
-    const p = new URLSearchParams(statusList.map((i) => ["bill_status", i]));
+    searchParams.delete("bill_status");
 
-    setSearchParams(p);
+    statusList.forEach((status) => {
+      searchParams.append("bill_status", status);
+    });
+    setSearchParams(searchParams);
   };
 
   return (
@@ -55,7 +61,10 @@ export const BillView = () => {
         count={numberOfPages}
         variant="outlined"
         shape="rounded"
-        onChange={(_event, value) => updatePage(value)}
+        onChange={(_event, value) => {
+          searchParams.set("page", value.toString());
+          setSearchParams(searchParams);
+        }}
       />
     </div>
   );
