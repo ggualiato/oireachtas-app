@@ -12,6 +12,7 @@ export const FavouriteButton = ({ billUid }: FavouriteButtonProps) => {
 
   return isBillFavourite(billUid) ? (
     <StarIcon
+      color="warning"
       onClick={(e) => {
         e.stopPropagation();
         unfavouriteBill(billUid);
@@ -19,6 +20,7 @@ export const FavouriteButton = ({ billUid }: FavouriteButtonProps) => {
     />
   ) : (
     <StarBorderIcon
+      color="warning"
       onClick={(e) => {
         e.stopPropagation();
         favouriteBill(billUid);
