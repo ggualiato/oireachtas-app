@@ -5,10 +5,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { FavouriteButton } from "../favorites/FavouriteButton";
-import { SponsorsView } from "./SponsorsView/SponsorsView";
-import { useLegislationContext } from "./useLegislationContext";
-import { Bill } from "../../domain/legislation";
+import { FavouriteButton } from "../../favorites/FavouriteButton";
+import { SponsorsView } from "../SponsorsView/SponsorsView";
+import { useLegislationContext } from "../useLegislationContext";
+import { Bill } from "../../../domain/legislation";
 
 interface BillsTableProps {
   onRowClick: (bill: Bill) => void;
