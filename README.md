@@ -4,6 +4,18 @@
 
 `npm run start`
 
+## Tech stack
+
+- React
+- Vite
+- Material UI
+- SWR
+- React Router
+- React Testing Library
+- Vitest
+- MSW
+
 ## Preview
 
 ![Preview](preview.gif)
+** the filter was done using the status field, becuase I couldn't find how to filter by type with the Oireachtas API**
