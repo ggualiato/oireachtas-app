@@ -5,7 +5,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useFavouritesContext } from "./useFavouritesContext";
+import { useFavouritesContext } from "../useFavouritesContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const FavouritesList = () => {
