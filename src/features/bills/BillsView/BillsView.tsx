@@ -1,4 +1,4 @@
-import { Bill } from "../../domain/legislation";
+import { Bill } from "../../../domain/legislation";
 import { useMemo, useState } from "react";
 import {
   FormControl,
@@ -9,10 +9,10 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { BillModal } from "./BillModal/BillModal";
-import { useLegislationContext } from "./useLegislationContext";
-import { BillStatus, statuses } from "./status";
-import { BillsTable } from "./BillsTable";
+import { BillModal } from "../BillModal/BillModal";
+import { useLegislationContext } from "../useLegislationContext";
+import { BillStatus, statuses } from "../status";
+import { BillsTable } from "../BillsTable";
 import { useSearchParams } from "react-router-dom";
 
 export const BillView = () => {
