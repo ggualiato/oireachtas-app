@@ -10,6 +10,7 @@ export const FavoritesList = () => {
       <List>
         {favorites.map((favorite) => (
           <ListItem
+            key={favorite.id}
             secondaryAction={
               <IconButton
                 edge="start"
