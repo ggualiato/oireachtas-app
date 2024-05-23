@@ -23,22 +23,22 @@ interface BillModalProps {
 }
 
 export const BillModal = ({ bill, onClose }: BillModalProps) => {
-  const [value, setValue] = useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
 
   return (
     <Modal open={!!bill} onClose={onClose}>
       <Box sx={style}>
-        <Tabs value={value} onChange={(_e, v) => setValue(v)}>
+        <Tabs value={currentTab} onChange={(_e, v) => setCurrentTab(v)}>
           <Tab label="English" id="english-tab" />
           <Tab label="Gaeilge" id="gaeilge-tab" />
         </Tabs>
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel value={currentTab} index={0}>
           <BillModalContent
             longTitle={bill.longTitleEn}
             shortTitle={bill.shortTitleEn}
           />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel value={currentTab} index={1}>
           <BillModalContent
             longTitle={bill.longTitleGa}
             shortTitle={bill.shortTitleGa}
