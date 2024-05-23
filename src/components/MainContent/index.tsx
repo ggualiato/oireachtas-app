@@ -25,9 +25,9 @@ export const MainContent = () => {
             component={Link}
           />
         </Tabs>
-        <div>
+        <Container>
           <Outlet />
-        </div>
+        </Container>
       </Container>
     </div>
   );

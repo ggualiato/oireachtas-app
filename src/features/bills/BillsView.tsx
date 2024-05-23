@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Modal,
+  OutlinedInput,
   Pagination,
   Select,
   SelectChangeEvent,
@@ -39,7 +40,15 @@ export const BillView = () => {
   };
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
+    <div
+      style={{
+        height: 500,
+        width: "100%",
+        gap: "5px",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {billSelected && (
         <Modal open={!!billSelected} onClose={() => setBillSelected(undefined)}>
           <BillModal bill={billSelected} />
@@ -48,7 +57,12 @@ export const BillView = () => {
 
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel>Status</InputLabel>
-        <Select multiple value={statusFilter} onChange={handleChange}>
+        <Select
+          multiple
+          value={statusFilter}
+          onChange={handleChange}
+          input={<OutlinedInput label="Status" />}
+        >
           {statuses.map((status) => (
             <MenuItem key={status} value={status}>
               {status}
