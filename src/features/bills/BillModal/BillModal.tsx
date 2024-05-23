@@ -1,8 +1,8 @@
 import { Box, Modal, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
-import { CustomTabPanel } from "../../components/CustomTabPanel";
-import { Bill } from "../../domain/legislation";
-import { BillModalContent } from "./BillModalContent";
+import { CustomTabPanel } from "../../../components/CustomTabPanel";
+import { Bill } from "../../../domain/legislation";
+import { BillModalContent } from "../BillModalContent";
 
 const style = {
   position: "absolute" as const,
@@ -17,8 +17,13 @@ const style = {
   borderRadius: 2,
 };
 
-interface BillModalProps {
-  bill: Bill;
+type PickBill = Pick<
+  Bill,
+  "longTitleEn" | "longTitleGa" | "shortTitleEn" | "shortTitleGa"
+>;
+
+export interface BillModalProps {
+  bill: PickBill;
   onClose: () => void;
 }
 

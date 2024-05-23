@@ -9,7 +9,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { BillModal } from "./BillModal";
+import { BillModal } from "./BillModal/BillModal";
 import { useLegislationContext } from "./useLegislationContext";
 import { BillStatus, statuses } from "./status";
 import { BillsTable } from "./BillsTable";
