@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Modal, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { CustomTabPanel } from "../../components/CustomTabPanel";
 import { Bill } from "../../domain/legislation";
@@ -19,29 +19,32 @@ const style = {
 
 interface BillModalProps {
   bill: Bill;
+  onClose: () => void;
 }
 
-export const BillModal = ({ bill }: BillModalProps) => {
+export const BillModal = ({ bill, onClose }: BillModalProps) => {
   const [value, setValue] = useState(0);
 
   return (
-    <Box sx={style}>
-      <Tabs value={value} onChange={(_e, v) => setValue(v)}>
-        <Tab label="English" id="english-tab" />
-        <Tab label="Gaeilge" id="gaeilge-tab" />
-      </Tabs>
-      <CustomTabPanel value={value} index={0}>
-        <BillModalContent
-          longTitle={bill.longTitleEn}
-          shortTitle={bill.shortTitleEn}
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <BillModalContent
-          longTitle={bill.longTitleGa}
-          shortTitle={bill.shortTitleGa}
-        />
-      </CustomTabPanel>
-    </Box>
+    <Modal open={!!bill} onClose={onClose}>
+      <Box sx={style}>
+        <Tabs value={value} onChange={(_e, v) => setValue(v)}>
+          <Tab label="English" id="english-tab" />
+          <Tab label="Gaeilge" id="gaeilge-tab" />
+        </Tabs>
+        <CustomTabPanel value={value} index={0}>
+          <BillModalContent
+            longTitle={bill.longTitleEn}
+            shortTitle={bill.shortTitleEn}
+          />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <BillModalContent
+            longTitle={bill.longTitleGa}
+            shortTitle={bill.shortTitleGa}
+          />
+        </CustomTabPanel>
+      </Box>
+    </Modal>
   );
 };

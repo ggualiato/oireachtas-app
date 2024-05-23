@@ -4,7 +4,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Modal,
   OutlinedInput,
   Pagination,
   Select,
@@ -50,9 +49,10 @@ export const BillView = () => {
       }}
     >
       {billSelected && (
-        <Modal open={!!billSelected} onClose={() => setBillSelected(undefined)}>
-          <BillModal bill={billSelected} />
-        </Modal>
+        <BillModal
+          bill={billSelected}
+          onClose={() => setBillSelected(undefined)}
+        />
       )}
 
       <FormControl sx={{ m: 1, width: 300 }}>
