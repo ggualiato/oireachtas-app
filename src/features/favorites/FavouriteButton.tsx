@@ -1,6 +1,6 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { useFavouritesContext } from "./useFavoritesContext";
+import { useFavouritesContext } from "./useFavouritesContext";
 import { BillWithId } from "../../domain/legislation";
 
 interface FavouriteButtonProps {
