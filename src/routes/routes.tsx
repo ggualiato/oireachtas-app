@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { BillView } from "../features/bills/BillsView";
-import { FavoritesList } from "../features/favorites/FavoritesList";
+import { FavouritesList } from "../features/favorites/FavoritesList";
 import ErrorPage from "../components/ErrorPage";
 import App from "../App";
 
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "favourites",
-        element: <FavoritesList />,
+        element: <FavouritesList />,
       },
     ],
   },

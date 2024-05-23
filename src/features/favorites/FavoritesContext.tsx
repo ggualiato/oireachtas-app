@@ -2,70 +2,70 @@ import { createContext, useCallback } from "react";
 import useSWR from "swr";
 import { fakeApi } from "../../services/api";
 
-interface FavoritesContextValue {
-  favorites: Favorite[];
-  favoriteBill: (billId: string) => Promise<void>;
-  unfavoriteBill: (billId: string) => Promise<void>;
-  isBillFavorite: (billId: string) => boolean;
+interface FavouritesContextValue {
+  favourites: Favourite[];
+  favouriteBill: (billId: string) => Promise<void>;
+  unfavouriteBill: (billId: string) => Promise<void>;
+  isBillFavourite: (billId: string) => boolean;
 }
 
-interface Favorite {
+interface Favourite {
   id: string;
 }
 
-export const FavoritesContext = createContext<FavoritesContextValue | null>(
+export const FavouritesContext = createContext<FavouritesContextValue | null>(
   null
 );
 
-interface FavoritesProviderProps {
+interface FavouritesProviderProps {
   children: React.ReactNode;
 }
 
-export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const favorite = useSWR<Favorite[]>("/favorites", (url: string) =>
+export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
+  const favourites = useSWR<Favourite[]>("/favorites", (url: string) =>
     fakeApi.get(url).then((resp) => resp.data)
   );
 
   const isBillFavorite = useCallback(
     (billId: string) => {
-      return !!favorite.data?.find((fav) => fav.id === billId);
+      return !!favourites.data?.find((fav) => fav.id === billId);
     },
-    [favorite.data]
+    [favourites.data]
   );
 
   const favoriteBill = useCallback(
     async (billId: string) => {
       const favoritedBil = { id: billId };
-      await fakeApi.post<void>("/favorites/", favoritedBil).then((data) => {
-        console.log(data);
+      await fakeApi.post<void>("/favorites/", favoritedBil).then(() => {
+        console.log("request to favorite a bill dispatched");
       });
-      favorite.mutate([...(favorite?.data ?? []), favoritedBil]);
+      favourites.mutate([...(favourites?.data ?? []), favoritedBil]);
     },
-    [favorite]
+    [favourites]
   );
 
   const unfavoriteBill = useCallback(
     async (billId: string) => {
-      await fakeApi.delete<void>("/favorites/" + billId).then((data) => {
-        console.log(data);
+      await fakeApi.delete<void>("/favorites/" + billId).then(() => {
+        console.log("request to unfavorite a bill");
       });
-      favorite.mutate(
-        (favorite?.data ?? []).filter((fav) => fav.id !== billId)
+      favourites.mutate(
+        (favourites?.data ?? []).filter((fav) => fav.id !== billId)
       );
     },
-    [favorite]
+    [favourites]
   );
 
   return (
-    <FavoritesContext.Provider
+    <FavouritesContext.Provider
       value={{
-        favorites: favorite.data ?? [],
-        favoriteBill,
-        unfavoriteBill,
-        isBillFavorite,
+        favourites: favourites.data ?? [],
+        favouriteBill: favoriteBill,
+        unfavouriteBill: unfavoriteBill,
+        isBillFavourite: isBillFavorite,
       }}
     >
       {children}
-    </FavoritesContext.Provider>
+    </FavouritesContext.Provider>
   );
 };

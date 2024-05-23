@@ -5,33 +5,33 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useFavoritesContext } from "./useFavoritesContext";
+import { useFavouritesContext } from "./useFavoritesContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const FavoritesList = () => {
-  const { favorites, unfavoriteBill } = useFavoritesContext();
-  const noFavoritesYet = favorites.length === 0;
+export const FavouritesList = () => {
+  const { favourites, unfavouriteBill } = useFavouritesContext();
+  const noFavoritesYet = favourites.length === 0;
 
   return (
     <div style={{ width: 500, height: 200 }}>
       {noFavoritesYet && (
-        <Typography sx={{ mt: 2 }}>{"There is no favorites yet"}</Typography>
+        <Typography sx={{ mt: 2 }}>{"There is no favourites yet"}</Typography>
       )}
       <List>
-        {favorites.map((favorite) => (
+        {favourites.map((favourite) => (
           <ListItem
-            key={favorite.id}
+            key={favourite.id}
             secondaryAction={
               <IconButton
                 edge="start"
                 aria-label="delete"
-                onClick={() => unfavoriteBill(favorite.id)}
+                onClick={() => unfavouriteBill(favourite.id)}
               >
                 <DeleteIcon />
               </IconButton>
             }
           >
-            <ListItemText primary={favorite.id} secondary={"Secondary text"} />
+            <ListItemText primary={favourite.id} secondary={"Secondary text"} />
           </ListItem>
         ))}
       </List>
