@@ -23,7 +23,7 @@ interface LegislationHead {
 export interface Bill {
   billNo: string;
   billType: string;
-  status: BillStatus;
+  status: EnumBillStatus;
   sponsors: Sponsor[];
   longTitleEn: string;
   longTitleGa: string;
@@ -51,7 +51,7 @@ export interface Sponsor {
   };
 }
 
-enum BillStatus {
+export enum EnumBillStatus {
   Current = "Current",
   Withdrawn = "Withdrawn",
   Enacted = "Enacted",
