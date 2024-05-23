@@ -1,7 +1,8 @@
-import { Box, Modal, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { CustomTabPanel } from "../../components/CustomTabPanel";
 import { Bill } from "../../domain/legislation";
+import { BillModalContent } from "./BillModalContent";
 
 const style = {
   position: "absolute" as const,
@@ -30,24 +31,16 @@ export const BillModal = ({ bill }: BillModalProps) => {
         <Tab label="Gaeilge" id="gaeilge-tab" />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          {bill?.shortTitleEn}
-        </Typography>
-        <div style={{ height: "300px", overflow: "auto" }}>
-          <Typography>
-            <span dangerouslySetInnerHTML={{ __html: bill.longTitleEn }}></span>
-          </Typography>
-        </div>
+        <BillModalContent
+          longTitle={bill.longTitleEn}
+          shortTitle={bill.shortTitleEn}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          {bill.shortTitleGa}
-        </Typography>
-        <div style={{ height: "300px", overflow: "auto" }}>
-          <Typography>
-            <span dangerouslySetInnerHTML={{ __html: bill.longTitleGa }}></span>
-          </Typography>
-        </div>
+        <BillModalContent
+          longTitle={bill.longTitleGa}
+          shortTitle={bill.shortTitleGa}
+        />
       </CustomTabPanel>
     </Box>
   );
