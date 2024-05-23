@@ -21,7 +21,7 @@ export const BillsTable = ({ onRowClick }: BillsTableProps) => {
     <Table size="medium">
       <TableHead>
         <TableRow>
-          <TableCell></TableCell>
+          <TableCell width={30}></TableCell>
           <TableCell align="left" width={80}>
             Bill number
           </TableCell>
