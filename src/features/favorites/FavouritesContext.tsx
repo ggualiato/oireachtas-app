@@ -37,14 +37,12 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
 
   const favouriteBill = useCallback(
     async (bill: PickBillWithId) => {
-      await fakeApi
-        .post<void>("/favourites/", {
-          id: bill.id,
-          shortTitle: bill.shortTitleEn,
-        })
-        .then(() => {
-          console.log("request to favorite a bill dispatched");
-        });
+      await fakeApi.post<void>("/favourites/", {
+        id: bill.id,
+        shortTitle: bill.shortTitleEn,
+      });
+
+      console.log("request to favorite a bill dispatched");
       favourites.mutate([
         ...(favourites?.data ?? []),
         { id: bill.id, shortTitle: bill.shortTitleEn },
@@ -55,9 +53,8 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
 
   const unfavouriteBill = useCallback(
     async (billId: string) => {
-      await fakeApi.delete<void>("/favourites/" + billId).then(() => {
-        console.log("request to unfavorite a bill");
-      });
+      await fakeApi.delete<void>("/favourites/" + billId);
+      console.log("request to unfavorite a bill");
       favourites.mutate(
         (favourites?.data ?? []).filter((fav) => fav.id !== billId)
       );
