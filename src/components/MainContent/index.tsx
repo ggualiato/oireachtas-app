@@ -4,11 +4,11 @@ import { useRouteMatch } from "../../hooks/useRouteMatch";
 
 export const MainContent = () => {
   const routeMatch = useRouteMatch(["/bills", "/favourites"]);
-  const currentTab = routeMatch?.pattern?.path ?? "/bills";
+  const currentTab = routeMatch?.pattern?.path;
 
   return (
     <Container maxWidth="md">
-      <Tabs value={currentTab}>
+      <Tabs value={currentTab ?? "/bills"}>
         <Tab
           label="Bills"
           value={"/bills"}
