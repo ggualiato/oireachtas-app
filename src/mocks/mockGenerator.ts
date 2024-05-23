@@ -6,18 +6,18 @@ import {
   Sponsor,
 } from "../domain/legislation";
 
-function getRandomInt(min: number, max: number): number {
+const getRandomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
-function getRandomDate(start: Date, end: Date): string {
+const getRandomDate = (start: Date, end: Date): string => {
   const date = new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
   );
   return date.toISOString().split("T")[0];
-}
+};
 
-function getRandomBillStatus(): string {
+const getRandomBillStatus = (): string => {
   const statuses = [
     "Current",
     "Withdrawn",
@@ -27,9 +27,9 @@ function getRandomBillStatus(): string {
     "Lapsed",
   ];
   return statuses[getRandomInt(0, statuses.length - 1)];
-}
+};
 
-function getRandomSponsor(): Sponsor {
+const getRandomSponsor = (): Sponsor => {
   const showAsNames = [
     null,
     "Sponsor A",
@@ -57,9 +57,9 @@ function getRandomSponsor(): Sponsor {
       },
     },
   };
-}
+};
 
-function getRandomBill(billNo: string, billYear: string): Bill {
+const getRandomBill = (billNo: string, billYear: string): Bill => {
   return {
     billNo: billNo,
     billType: `Type${String.fromCharCode(65 + getRandomInt(0, 25))}`,
@@ -71,11 +71,11 @@ function getRandomBill(billNo: string, billYear: string): Bill {
     shortTitleEn: "Title " + Math.random().toString(36).substring(7),
     shortTitleGa: "Teideal " + Math.random().toString(36).substring(7),
   };
-}
+};
 
-export function createMockLegislationResponse(
+export const createMockLegislationResponse = (
   count: number
-): LegislationResponse {
+): LegislationResponse => {
   const results: LegislationResult[] = [];
   const currentYear = new Date().getFullYear();
 
@@ -109,7 +109,7 @@ export function createMockLegislationResponse(
   };
 
   return mockLegislationResponse;
-}
+};
 
 export const createMockFavourites = () => {
   return [
@@ -140,7 +140,3 @@ export const createMockFavourites = () => {
     },
   ];
 };
-
-// Usage
-// const mockResponse = createMockLegislationResponse(5);
-// console.log(mockResponse);
